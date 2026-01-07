@@ -12,6 +12,7 @@ export const viewport = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://tag-bridge-com.vercel.app'),
   title: 'TagBridge - We bridge the gap between your problems and solutions',
   description: 'TagBridge specializes in AI tool reviews, app analysis, software solutions, ERP systems, and crypto insights. Your trusted digital solutions partner.',
   keywords: 'AI tools, app reviews, software solutions, ERP systems, crypto insights, technology analysis, digital solutions, TagBridge, ታግብሪጅ, AI መሳሪያዎች, የመተግበሪያ ግምገማዎች',
