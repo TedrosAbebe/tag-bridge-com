@@ -8,6 +8,7 @@ interface Product {
   title: string
   description: string
   price: string
+  currency: 'USD' | 'ETB'
   category: string
   image?: string
 }
@@ -20,34 +21,30 @@ export default function ProductManager() {
     title: '',
     description: '',
     price: '',
+    currency: 'USD' as 'USD' | 'ETB',
     category: 'Course',
     image: ''
   })
 
-  const categories = ['Course', 'Book', 'Digital Product', 'Templates', 'Service']
+  const categories = ['Course', 'Book', 'Software', 'Template', 'Service', 'Consultation', 'Subscription']
+  const currencies = [
+    { value: 'USD', label: 'USD ($)', symbol: '$' },
+    { value: 'ETB', label: 'ETB (Ethiopian Birr)', symbol: 'ETB' }
+  ]
 
   useEffect(() => {
     // Load products from localStorage
     const savedProducts = localStorage.getItem('adminProducts')
     if (savedProducts) {
-      setProducts(JSON.parse(savedProducts))
-    } else {
-      // Initialize with default products
-      const defaultProducts: Product[] = [
-        {
-          id: '1',
-          title: 'Digital Marketing Masterclass',
-          description: 'Complete guide to digital marketing strategies and social media growth.',
-          price: '$49.99',
-          category: 'Course'
-        },
-        {
-          id: '2',
-          title: 'Content Creation Toolkit',
-          description: 'Essential tools and templates for creating engaging social media content.',
-          price: '$29.99',
-          category: 'Digital Product'
-        },
+      try {
+        setProducts(JSON.parse(savedProducts))
+      } catch (error) {
+        console.error('Error loading products:', error)
+        setProducts([])
+      }
+    }
+    // No default products - start empty
+  }, [])
         {
           id: '3',
           title: 'Personal Branding Book',
@@ -74,7 +71,7 @@ export default function ProductManager() {
       }
       const updatedProducts = [...products, newProduct]
       saveProducts(updatedProducts)
-      setFormData({ title: '', description: '', price: '', category: 'Course', image: '' })
+      setFormData({ title: '', description: '', price: '', currency: 'USD', category: 'Course', image: '' })
       setIsAddingProduct(false)
     }
   }
@@ -86,6 +83,7 @@ export default function ProductManager() {
         title: product.title,
         description: product.description,
         price: product.price,
+        currency: product.currency || 'USD',
         category: product.category,
         image: product.image || ''
       })
@@ -101,7 +99,7 @@ export default function ProductManager() {
           : product
       )
       saveProducts(updatedProducts)
-      setFormData({ title: '', description: '', price: '', category: 'Course', image: '' })
+      setFormData({ title: '', description: '', price: '', currency: 'USD', category: 'Course', image: '' })
       setEditingProduct(null)
     }
   }
@@ -114,7 +112,7 @@ export default function ProductManager() {
   }
 
   const resetForm = () => {
-    setFormData({ title: '', description: '', price: '', category: 'Course', image: '' })
+    setFormData({ title: '', description: '', price: '', currency: 'USD', category: 'Course', image: '' })
     setIsAddingProduct(false)
     setEditingProduct(null)
   }
@@ -183,15 +181,23 @@ export default function ProductManager() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Price
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <DollarSign className="h-4 w-4 text-gray-400" />
-                </div>
+              <div className="flex gap-2">
+                <select
+                  value={formData.currency}
+                  onChange={(e) => setFormData({ ...formData, currency: e.target.value as 'USD' | 'ETB' })}
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {currencies.map(currency => (
+                    <option key={currency.value} value={currency.value}>
+                      {currency.label}
+                    </option>
+                  ))}
+                </select>
                 <input
                   type="text"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="29.99"
                 />
               </div>
@@ -274,7 +280,7 @@ export default function ProductManager() {
                   {product.title}
                 </h3>
                 <span className="text-lg font-bold text-blue-600 ml-2">
-                  {product.price}
+                  {product.currency === 'USD' ? '$' : 'ETB'}{product.price}
                 </span>
               </div>
               
