@@ -1,0 +1,28 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="#F8F9FA" stroke="#1F2937" stroke-width="4"/>
+  
+  <!-- Tag Shape -->
+  <path d="M35 35 L75 35 C80.5228 35 85 39.4772 85 45 L85 55 L75 65 L45 65 C39.4772 65 35 60.5228 35 55 L35 35 Z" fill="#14B8A6"/>
+  
+  <!-- Tag Hole -->
+  <circle cx="70" cy="45" r="4" fill="white"/>
+  
+  <!-- Tag String -->
+  <rect x="30" y="50" width="12" height="3" rx="1.5" fill="#1F2937"/>
+  
+  <!-- Bridge -->
+  <path d="M40 55 Q60 45 80 55" stroke="#F97316" stroke-width="4" fill="none"/>
+  <rect x="42" y="53" width="2" height="8" fill="#F97316"/>
+  <rect x="48" y="51" width="2" height="10" fill="#F97316"/>
+  <rect x="54" y="50" width="2" height="11" fill="#F97316"/>
+  <rect x="60" y="49" width="2" height="12" fill="#F97316"/>
+  <rect x="66" y="50" width="2" height="11" fill="#F97316"/>
+  <rect x="72" y="51" width="2" height="10" fill="#F97316"/>
+  <rect x="78" y="53" width="2" height="8" fill="#F97316"/>
+  
+  <!-- Bridge Base -->
+  <ellipse cx="60" cy="65" rx="20" ry="3" fill="#14B8A6"/>
+  
+  <!-- Text -->
+  <text x="60" y="85" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1F2937">TagBridge</text>
+</svg>
