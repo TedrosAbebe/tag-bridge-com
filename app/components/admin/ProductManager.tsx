@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Save, X, DollarSign } from 'lucide-react'
-import { title } from 'process'
-import { title } from 'process'
 
 interface Product {
   id: string
@@ -54,18 +52,6 @@ export default function ProductManager() {
       }
     }
     // No default products - start empty
-  }, [])
-        {
-          id: '3',
-          title: 'Personal Branding Book',
-          description: 'Learn how to build a powerful personal brand in the digital age.',
-          price: '$19.99',
-          category: 'Book'
-        }
-      ]
-      setProducts(defaultProducts)
-      localStorage.setItem('adminProducts', JSON.stringify(defaultProducts))
-    }
   }, [])
 
   const saveProducts = (updatedProducts: Product[]) => {
