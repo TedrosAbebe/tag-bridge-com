@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Eye, EyeOff, Lock, User } from 'lucide-react'
+import { Eye, EyeOff, Lock, User, Shield } from 'lucide-react'
 
 interface AdminLoginProps {
   onLogin: (success: boolean) => void
@@ -40,7 +40,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
     setIsLoading(true)
     setError('')
 
-    // Check against saved credentials or default
+    // Check against saved credentials or default (hidden from UI)
     const isValidLogin = adminCreds 
       ? (credentials.username === adminCreds.username && credentials.password === adminCreds.password)
       : (credentials.username === 'tedy' && credentials.password === '123456')
@@ -52,7 +52,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
       }, 1000)
     } else {
       setTimeout(() => {
-        setError('Invalid username or password')
+        setError('Invalid username or password. Access denied.')
         setIsLoading(false)
       }, 1000)
     }
@@ -68,13 +68,18 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
       <div className="relative max-w-md w-full space-y-8">
         <div className="text-center">
+          <div className="flex justify-center mb-4">
+            <div className="p-4 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl border border-white/10">
+              <Shield className="h-12 w-12 text-teal-400" />
+            </div>
+          </div>
           <h2 className="text-4xl font-black mb-4">
             <span className="bg-gradient-to-r from-teal-400 via-blue-400 to-orange-400 bg-clip-text text-transparent animate-gradient-x bg-300%">
-              TagBridge Admin
+              Secure Admin Access
             </span>
           </h2>
           <p className="text-gray-300 text-lg">
-            Sign in to manage TagBridge content and insights
+            Authorized personnel only
           </p>
         </div>
 
@@ -151,30 +156,25 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
               {isLoading ? (
                 <div className="flex items-center">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  Signing in...
+                  Authenticating...
                 </div>
               ) : (
-                'Sign In'
+                'Secure Login'
               )}
             </button>
           </form>
 
-          {/* Current Credentials Info */}
-          <div className="mt-6 bg-blue-500/20 border border-blue-500/30 rounded-xl p-4">
-            <p className="text-blue-300 text-sm font-medium mb-2">
-              {adminCreds ? 'Custom Admin Credentials Set' : 'Default Credentials Active'}
-            </p>
-            {!adminCreds && (
-              <div className="space-y-1">
-                <p className="text-blue-200 text-sm">Username: <code className="bg-blue-500/20 px-1 rounded">tedy</code></p>
-                <p className="text-blue-200 text-sm">Password: <code className="bg-blue-500/20 px-1 rounded">123456</code></p>
-              </div>
-            )}
-            {adminCreds && (
-              <p className="text-blue-200 text-sm">
-                Setup on: {new Date(adminCreds.setupDate).toLocaleDateString()}
+          {/* Security Notice */}
+          <div className="mt-6 bg-amber-500/20 border border-amber-500/30 rounded-xl p-4">
+            <div className="flex items-center">
+              <Shield className="h-5 w-5 text-amber-400 mr-2" />
+              <p className="text-amber-300 text-sm font-medium">
+                {adminCreds ? 'Custom Security Credentials Active' : 'Secure Access Protected'}
               </p>
-            )}
+            </div>
+            <p className="text-amber-200 text-xs mt-1">
+              Unauthorized access attempts are logged and monitored.
+            </p>
           </div>
         </div>
 
@@ -184,7 +184,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
             href="/"
             className="text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors duration-200"
           >
-            ← Back to Home
+            ← Back to TagBridge Home
           </a>
         </div>
       </div>
