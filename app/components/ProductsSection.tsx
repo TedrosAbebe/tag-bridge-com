@@ -23,7 +23,13 @@ export default function ProductsSection() {
     const adminProducts = localStorage.getItem('adminProducts')
     if (adminProducts) {
       try {
-        setProducts(JSON.parse(adminProducts))
+        const parsedProducts = JSON.parse(adminProducts)
+        // Add backward compatibility for products without currency field
+        const productsWithCurrency = parsedProducts.map((product: any) => ({
+          ...product,
+          currency: product.currency || 'USD' // Default to USD if no currency specified
+        }))
+        setProducts(productsWithCurrency)
       } catch (error) {
         console.error('Error loading products:', error)
         setProducts([])

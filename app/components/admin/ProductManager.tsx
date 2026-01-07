@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Save, X, DollarSign } from 'lucide-react'
+import { title } from 'process'
+import { title } from 'process'
 
 interface Product {
   id: string
@@ -37,7 +39,15 @@ export default function ProductManager() {
     const savedProducts = localStorage.getItem('adminProducts')
     if (savedProducts) {
       try {
-        setProducts(JSON.parse(savedProducts))
+        const parsedProducts = JSON.parse(savedProducts)
+        // Add backward compatibility for products without currency field
+        const productsWithCurrency = parsedProducts.map((product: any) => ({
+          ...product,
+          currency: product.currency || 'USD' // Default to USD if no currency specified
+        }))
+        setProducts(productsWithCurrency)
+        // Save back with currency field added
+        localStorage.setItem('adminProducts', JSON.stringify(productsWithCurrency))
       } catch (error) {
         console.error('Error loading products:', error)
         setProducts([])
@@ -108,6 +118,13 @@ export default function ProductManager() {
     if (confirm('Are you sure you want to delete this product?')) {
       const updatedProducts = products.filter(product => product.id !== id)
       saveProducts(updatedProducts)
+    }
+  }
+
+  const resetProducts = () => {
+    if (confirm('This will clear all products. Are you sure?')) {
+      localStorage.removeItem('adminProducts')
+      setProducts([])
     }
   }
 
