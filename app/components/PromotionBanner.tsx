@@ -76,7 +76,7 @@ export default function PromotionBanner({ position }: PromotionBannerProps) {
   }
 
   // Filter banners for this position that are active and not dismissed
-  const activeBanners = banners.filter(banner => 
+  const activeBanners = banners.filter((banner: Banner) => 
     banner.position === position && 
     banner.isActive && 
     !dismissedBanners.includes(banner.id)
