@@ -2,18 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
-
-interface Banner {
-  id: string
-  title: string
-  description: string
-  buttonText: string
-  buttonLink: string
-  backgroundColor: string
-  textColor: string
-  isActive: boolean
-  position: 'top' | 'bottom' | 'hero'
-}
+import { getPublicBanners, type Banner } from '../data/banners'
 
 interface PromotionBannerProps {
   position: 'top' | 'bottom' | 'hero'
@@ -25,9 +14,9 @@ export default function PromotionBanner({ position }: PromotionBannerProps) {
 
   useEffect(() => {
     const loadBanners = () => {
-      // Load banners from localStorage
-      const savedBanners = localStorage.getItem('adminBanners')
-      if (savedBanners) {
+      // Load banners from the public data file (visible to all visitors)
+      const publicBanners = getPublicBanners()
+      setBanners(publicBanners)
         try {
           const parsedBanners = JSON.parse(savedBanners)
           setBanners(parsedBanners)
@@ -50,23 +39,6 @@ export default function PromotionBanner({ position }: PromotionBannerProps) {
     }
 
     loadBanners()
-
-    // Listen for storage changes (when banners are updated in admin)
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'adminBanners') {
-        loadBanners()
-      }
-    }
-
-    window.addEventListener('storage', handleStorageChange)
-    
-    // Also check for updates every 2 seconds (for same-tab updates)
-    const interval = setInterval(loadBanners, 2000)
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      clearInterval(interval)
-    }
   }, [position])
 
   const dismissBanner = (bannerId: string) => {
