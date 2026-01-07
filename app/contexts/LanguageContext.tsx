@@ -84,14 +84,6 @@ const translations = {
     telegramCommunity: 'Telegram Community',
     telegramCommunityDesc: 'Join our Telegram channel for exclusive content, updates, and community discussions.',
     
-    // Buttons
-    chatWhatsAppBtn: 'Chat on WhatsApp',
-    joinTelegramBtn: 'Join Telegram',
-    getUpdatesBtn: 'Get Updates',
-    subscribeBtn: 'Subscribe',
-    discussBtn: 'Discuss',
-    requestBtn: 'Request',
-    
     // Footer
     footerDesc: 'Bridging technology and innovation with expert insights on AI tools, software solutions, and digital trends.',
     quickLinks: 'Quick Links',
@@ -171,14 +163,6 @@ const translations = {
     contactSubtitle: 'ለመገናኘት ዝግጁ ነዎት? ለፈጣን እርዳታ በቀጥታ በስልክ ወይም በWhatsApp ያግኙን',
     telegramCommunity: 'የቴሌግራም ማህበረሰብ',
     telegramCommunityDesc: 'ለልዩ ይዘት፣ ዝማኔዎች እና የማህበረሰብ ውይይቶች የእኛን የቴሌግራም ቻናል ይቀላቀሉ።',
-    
-    // Buttons
-    chatWhatsAppBtn: 'በWhatsApp ይወያዩ',
-    joinTelegramBtn: 'ቴሌግራም ይቀላቀሉ',
-    getUpdatesBtn: 'ዝማኔዎችን ያግኙ',
-    subscribeBtn: 'ይመዝገቡ',
-    discussBtn: 'ይወያዩ',
-    requestBtn: 'ይጠይቁ',
     
     // Footer
     footerDesc: 'በAI መሣሪያዎች፣ የሶፍትዌር መፍትሔዎች እና ዲጂታል አዝማሚያዎች ላይ የባለሙያ ግንዛቤዎች ያለው ቴክኖሎጂ እና ፈጠራን ማገናኘት።',
