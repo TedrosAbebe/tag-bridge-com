@@ -2,16 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../contexts/LanguageContext'
-
-interface Product {
-  id: string
-  title: string
-  description: string
-  price: string
-  currency: 'USD' | 'ETB'
-  category: string
-  image?: string
-}
+import { getPublicProducts, type Product } from '../data/products'
 
 export default function ProductsSection() {
   const { t } = useLanguage()
@@ -19,23 +10,9 @@ export default function ProductsSection() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Load products from localStorage (admin managed)
-    const adminProducts = localStorage.getItem('adminProducts')
-    if (adminProducts) {
-      try {
-        const parsedProducts = JSON.parse(adminProducts)
-        // Add backward compatibility for products without currency field
-        const productsWithCurrency = parsedProducts.map((product: any) => ({
-          ...product,
-          currency: product.currency || 'USD' // Default to USD if no currency specified
-        }))
-        setProducts(productsWithCurrency)
-      } catch (error) {
-        console.error('Error loading products:', error)
-        setProducts([])
-      }
-    }
-    // No default products - admin will add them
+    // Load products from the public data file (visible to all visitors)
+    const publicProducts = getPublicProducts()
+    setProducts(publicProducts)
 
     // Intersection Observer for animations
     const observer = new IntersectionObserver(
