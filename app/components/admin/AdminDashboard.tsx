@@ -27,6 +27,54 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
     })
   }, [activeTab])
 
+  const exportData = () => {
+    const banners = localStorage.getItem('adminBanners') || '[]'
+    const products = localStorage.getItem('adminProducts') || '[]'
+    
+    const data = {
+      banners: JSON.parse(banners),
+      products: JSON.parse(products),
+      exportDate: new Date().toISOString()
+    }
+    
+    const dataStr = JSON.stringify(data, null, 2)
+    const dataBlob = new Blob([dataStr], { type: 'application/json' })
+    const url = URL.createObjectURL(dataBlob)
+    
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `tagbridge-data-${new Date().toISOString().split('T')[0]}.json`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
+  const importData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target?.result as string)
+        
+        if (data.banners) {
+          localStorage.setItem('adminBanners', JSON.stringify(data.banners))
+        }
+        if (data.products) {
+          localStorage.setItem('adminProducts', JSON.stringify(data.products))
+        }
+        
+        alert('Data imported successfully! Please refresh the page.')
+        window.location.reload()
+      } catch (error) {
+        alert('Error importing data. Please check the file format.')
+      }
+    }
+    reader.readAsText(file)
+  }
+
   const tabs = [
     {
       id: 'banners' as const,
@@ -65,6 +113,25 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
             </div>
             
             <div className="flex items-center space-x-4">
+              {/* Data Sync Buttons */}
+              <button
+                onClick={exportData}
+                className="flex items-center px-3 py-2 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-lg transition-colors duration-200"
+                title="Export data to sync between devices"
+              >
+                📤 Export
+              </button>
+              
+              <label className="flex items-center px-3 py-2 text-sm font-medium text-green-700 bg-green-100 hover:bg-green-200 rounded-lg transition-colors duration-200 cursor-pointer">
+                📥 Import
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={importData}
+                  className="hidden"
+                />
+              </label>
+              
               <a
                 href="/"
                 target="_blank"
