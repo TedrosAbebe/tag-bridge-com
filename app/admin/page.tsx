@@ -4,31 +4,22 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import AdminLogin from '../components/admin/AdminLogin'
 import AdminDashboard from '../components/admin/AdminDashboard'
-import AdminSetup from '../components/admin/AdminSetup'
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [needsSetup, setNeedsSetup] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
-    // Check if admin setup is complete
-    const setupComplete = localStorage.getItem('adminSetupComplete')
+    // Check authentication status
     const adminToken = localStorage.getItem('adminToken')
     
-    if (!setupComplete) {
-      setNeedsSetup(true)
-    } else if (adminToken === 'tagbridge-admin-token') {
+    if (adminToken === 'tagbridge-admin-token') {
       setIsAuthenticated(true)
     }
     
     setIsLoading(false)
   }, [])
-
-  const handleSetupComplete = () => {
-    setNeedsSetup(false)
-  }
 
   const handleLogin = (success: boolean) => {
     if (success) {
@@ -52,10 +43,6 @@ export default function AdminPage() {
         </div>
       </div>
     )
-  }
-
-  if (needsSetup) {
-    return <AdminSetup onSetupComplete={handleSetupComplete} />
   }
 
   return (
