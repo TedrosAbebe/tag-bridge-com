@@ -32,7 +32,7 @@ export default function PromotionBanner({ position }: PromotionBannerProps) {
           const parsedBanners = JSON.parse(savedBanners)
           setBanners(parsedBanners)
           console.log('Loaded banners:', parsedBanners) // Debug log
-          console.log(`Banners for position ${position}:`, parsedBanners.filter(b => b.position === position && b.isActive)) // Debug log
+          console.log(`Banners for position ${position}:`, parsedBanners.filter((b: Banner) => b.position === position && b.isActive)) // Debug log
         } catch (error) {
           console.error('Error parsing banners:', error)
         }
