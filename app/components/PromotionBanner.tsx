@@ -13,32 +13,19 @@ export default function PromotionBanner({ position }: PromotionBannerProps) {
   const [dismissedBanners, setDismissedBanners] = useState<string[]>([])
 
   useEffect(() => {
-    const loadBanners = () => {
-      // Load banners from the public data file (visible to all visitors)
-      const publicBanners = getPublicBanners()
-      setBanners(publicBanners)
-        try {
-          const parsedBanners = JSON.parse(savedBanners)
-          setBanners(parsedBanners)
-          console.log('Loaded banners:', parsedBanners) // Debug log
-          console.log(`Banners for position ${position}:`, parsedBanners.filter((b: Banner) => b.position === position && b.isActive)) // Debug log
-        } catch (error) {
-          console.error('Error parsing banners:', error)
-        }
-      }
+    // Load banners from the public data file (visible to all visitors)
+    const publicBanners = getPublicBanners()
+    setBanners(publicBanners)
 
-      // Load dismissed banners from localStorage
-      const dismissed = localStorage.getItem('dismissedBanners')
-      if (dismissed) {
-        try {
-          setDismissedBanners(JSON.parse(dismissed))
-        } catch (error) {
-          console.error('Error parsing dismissed banners:', error)
-        }
+    // Load dismissed banners from localStorage
+    const dismissed = localStorage.getItem('dismissedBanners')
+    if (dismissed) {
+      try {
+        setDismissedBanners(JSON.parse(dismissed))
+      } catch (error) {
+        console.error('Error parsing dismissed banners:', error)
       }
     }
-
-    loadBanners()
   }, [position])
 
   const dismissBanner = (bannerId: string) => {
@@ -54,63 +41,51 @@ export default function PromotionBanner({ position }: PromotionBannerProps) {
     !dismissedBanners.includes(banner.id)
   )
 
-  console.log(`Banners for position ${position}:`, activeBanners) // Debug log
-
   if (activeBanners.length === 0) {
     return null
   }
 
   return (
-    <div className="space-y-2">
+    <div className="relative">
       {activeBanners.map((banner) => (
         <div
           key={banner.id}
-          className={`relative ${position === 'top' ? 'z-40' : 'z-10'} bg-gradient-to-r from-teal-400 via-cyan-300 to-blue-400 shadow-lg`}
+          className={`relative overflow-hidden ${
+            position === 'hero' ? 'mb-8' : 'mb-4'
+          }`}
         >
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-500/80 via-cyan-400/80 to-blue-500/80"></div>
-          
-          {/* Content */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className={`bg-gradient-to-r ${banner.backgroundColor} ${banner.textColor} px-4 sm:px-6 py-3 sm:py-4 rounded-xl shadow-lg`}>
             <div className="flex items-center justify-between">
-              <div className="flex-1 flex items-center justify-center text-center">
-                <div>
-                  <h4 className="font-bold text-sm sm:text-base text-white drop-shadow-sm">{banner.title}</h4>
-                  {banner.description && (
-                    <p className="text-xs sm:text-sm text-white/90 mt-1 drop-shadow-sm">{banner.description}</p>
-                  )}
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex-1">
+                    <h3 className="font-bold text-sm sm:text-base mb-1 sm:mb-0">
+                      {banner.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm opacity-90 mb-2 sm:mb-0">
+                      {banner.description}
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <a
+                      href={banner.buttonLink}
+                      target={banner.buttonLink.startsWith('http') ? '_blank' : '_self'}
+                      rel={banner.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm whitespace-nowrap"
+                    >
+                      {banner.buttonText}
+                    </a>
+                    <button
+                      onClick={() => dismissBanner(banner.id)}
+                      className="p-1 hover:bg-white/20 rounded-full transition-colors duration-200"
+                      aria-label="Dismiss banner"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
-                {banner.buttonText && banner.buttonLink && (
-                  <a
-                    href={banner.buttonLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ml-4 px-6 py-2 bg-white/90 hover:bg-white text-gray-800 rounded-full font-medium text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl backdrop-blur-sm"
-                    onClick={() => console.log('Banner button clicked:', banner.buttonLink)}
-                  >
-                    {banner.buttonText}
-                  </a>
-                )}
               </div>
-              
-              {position !== 'hero' && (
-                <button
-                  onClick={() => dismissBanner(banner.id)}
-                  className="ml-4 p-2 hover:bg-white/20 rounded-full transition-all duration-200 text-white/80 hover:text-white"
-                  aria-label="Dismiss banner"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              )}
             </div>
-          </div>
-          
-          {/* Decorative Elements */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute -top-4 -left-4 w-8 h-8 bg-white/10 rounded-full"></div>
-            <div className="absolute top-2 right-8 w-4 h-4 bg-white/10 rounded-full"></div>
-            <div className="absolute -bottom-2 left-1/4 w-6 h-6 bg-white/10 rounded-full"></div>
-            <div className="absolute top-1/2 right-1/4 w-3 h-3 bg-white/10 rounded-full"></div>
           </div>
         </div>
       ))}
