@@ -63,6 +63,7 @@ const translations = {
     startDesc: 'Contact us directly to discuss your needs and get personalized recommendations for the best products and services that will accelerate your digital transformation journey.',
     directCall: 'Direct Call',
     directCallDesc: 'Get immediate assistance and personalized consultation',
+    whatsappChat: 'WhatsApp Chat',
     whatsappChatDesc: 'Quick responses and easy communication',
     chatNow: 'Chat Now',
     
@@ -80,21 +81,16 @@ const translations = {
     // Contact
     contactTitle: 'Contact Me',
     contactSubtitle: 'Ready to connect? Reach out directly through phone or WhatsApp for immediate assistance',
-    callDirectly: 'Call Directly',
-    callDirectlyDesc: 'Get immediate assistance with a direct phone call. Available during business hours.',
-    whatsappChat: 'WhatsApp Chat',
-    whatsappChatDesc: 'Send a message on WhatsApp for quick responses and easy communication.',
     telegramCommunity: 'Telegram Community',
     telegramCommunityDesc: 'Join our Telegram channel for exclusive content, updates, and community discussions.',
     
     // Buttons
-    callNow: 'Call Now',
-    chatWhatsApp: 'Chat on WhatsApp',
-    joinTelegram: 'Join Telegram',
-    getUpdates: 'Get Updates',
-    subscribe: 'Subscribe',
-    discuss: 'Discuss',
-    request: 'Request',
+    chatWhatsAppBtn: 'Chat on WhatsApp',
+    joinTelegramBtn: 'Join Telegram',
+    getUpdatesBtn: 'Get Updates',
+    subscribeBtn: 'Subscribe',
+    discussBtn: 'Discuss',
+    requestBtn: 'Request',
     
     // Footer
     footerDesc: 'Bridging technology and innovation with expert insights on AI tools, software solutions, and digital trends.',
@@ -155,6 +151,7 @@ const translations = {
     startDesc: 'የዲጂታል ለውጥ ጉዞዎን የሚያፋጥኑ ምርጥ ምርቶችን እና አገልግሎቶችን ለማግኘት በቀጥታ ያግኙን።',
     directCall: 'ቀጥተኛ ጥሪ',
     directCallDesc: 'ፈጣን እርዳታ እና ግላዊ ምክር ያግኙ',
+    whatsappChat: 'WhatsApp ውይይት',
     whatsappChatDesc: 'ፈጣን ምላሽ እና ቀላል ግንኙነት',
     chatNow: 'አሁን ይወያዩ',
     
@@ -172,21 +169,16 @@ const translations = {
     // Contact
     contactTitle: 'ያግኙኝ',
     contactSubtitle: 'ለመገናኘት ዝግጁ ነዎት? ለፈጣን እርዳታ በቀጥታ በስልክ ወይም በWhatsApp ያግኙን',
-    callDirectly: 'በቀጥታ ይደውሉ',
-    callDirectlyDesc: 'በቀጥታ የስልክ ጥሪ ፈጣን እርዳታ ያግኙ። በስራ ሰዓታት ውስጥ ይገኛል።',
-    whatsappChat: 'WhatsApp ውይይት',
-    whatsappChatDesc: 'ለፈጣን ምላሽ እና ቀላል ግንኙነት በWhatsApp መልእክት ይላኩ።',
     telegramCommunity: 'የቴሌግራም ማህበረሰብ',
     telegramCommunityDesc: 'ለልዩ ይዘት፣ ዝማኔዎች እና የማህበረሰብ ውይይቶች የእኛን የቴሌግራም ቻናል ይቀላቀሉ።',
     
     // Buttons
-    callNow: 'አሁን ይደውሉ',
-    chatWhatsApp: 'በWhatsApp ይወያዩ',
-    joinTelegram: 'ቴሌግራም ይቀላቀሉ',
-    getUpdates: 'ዝማኔዎችን ያግኙ',
-    subscribe: 'ይመዝገቡ',
-    discuss: 'ይወያዩ',
-    request: 'ይጠይቁ',
+    chatWhatsAppBtn: 'በWhatsApp ይወያዩ',
+    joinTelegramBtn: 'ቴሌግራም ይቀላቀሉ',
+    getUpdatesBtn: 'ዝማኔዎችን ያግኙ',
+    subscribeBtn: 'ይመዝገቡ',
+    discussBtn: 'ይወያዩ',
+    requestBtn: 'ይጠይቁ',
     
     // Footer
     footerDesc: 'በAI መሣሪያዎች፣ የሶፍትዌር መፍትሔዎች እና ዲጂታል አዝማሚያዎች ላይ የባለሙያ ግንዛቤዎች ያለው ቴክኖሎጂ እና ፈጠራን ማገናኘት።',
